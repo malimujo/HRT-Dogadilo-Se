@@ -65,7 +65,7 @@ async function updateM3U() {
 #EXTINF:-1 tvg-logo="https://radio.hrt.hr/favicon.ico",HRT Vijesti ${emisijaInfo}
 ${firstMp3}`;
 
-      fs.writeFileSync('Dogodilo_se.m3u', m3uContent);
+      fs.writeFileSync('dogodilo_se.m3u', m3uContent);
       console.log('✅ M3U spreman s datumom/vremenom!');
     } else {
       throw new Error('Nema MP3-a');
