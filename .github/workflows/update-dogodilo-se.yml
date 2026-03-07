@@ -1,7 +1,7 @@
 name: Ažuriraj Dogodilo se M3U
 on:
   schedule:
-    - cron: '17 * * * *'  # Svaki sat na 17. minuti
+    - cron: '50 7 * * *'  # Svaki dan u 7:50
   workflow_dispatch:
 
 permissions:
