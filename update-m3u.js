@@ -15,7 +15,7 @@ async function updateM3U() {
     await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36');
     
     console.log('📄 Učitavam https://radio.hrt.hr/slusaonica/vijesti');
-    await page.goto('https://radio.hrt.hr/slusaonica/vijesti', { 
+    await page.goto('https://radio.hrt.hr/slusaonica/dogodilo-se-na-danasnji-dan', { 
       waitUntil: 'networkidle2'
     });
     
