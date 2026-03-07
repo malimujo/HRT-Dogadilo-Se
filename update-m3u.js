@@ -76,7 +76,7 @@ ${firstMp3}`;
     const fallbackContent = `#EXTM3U
 #EXTINF:-1,HRT Vijesti 07.03.2026 09:10
 https://api.hrt.hr/media/28/da/20260307-vijesti-37328738-20260307091001.mp3`;
-    fs.writeFileSync('vijesti.m3u', fallbackContent);
+    fs.writeFileSync('dogodilo-se.m3u', fallbackContent);
     console.log('✅ Fallback M3U spreman');
   } finally {
     if (browser) {
