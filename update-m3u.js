@@ -14,7 +14,7 @@ async function updateM3U() {
     const page = await browser.newPage();
     await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36');
     
-    console.log('📄 Učitavam https://radio.hrt.hr/slusaonica/vijesti');
+    console.log('📄 Učitavam https://radio.hrt.hr/slusaonica/dogodilo-se-na-danasnji-dan');
     await page.goto('https://radio.hrt.hr/slusaonica/dogodilo-se-na-danasnji-dan', { 
       waitUntil: 'networkidle2'
     });
@@ -62,11 +62,11 @@ async function updateM3U() {
       console.log('📅 Datum/vrijeme:', emisijaInfo);
       
       const m3uContent = `#EXTM3U
-#EXTINF:-1 tvg-logo="https://radio.hrt.hr/favicon.ico",HRT Vijesti ${emisijaInfo}
+#EXTINF:-1 tvg-logo="https://radio.hrt.hr/favicon.ico",Dogodilo se ${emisijaInfo}
 ${firstMp3}`;
 
       fs.writeFileSync('dogodilo_se.m3u', m3uContent);
-      console.log('✅ M3U spreman s datumom/vremenom!');
+      console.log('✅ dogodilo_se.m3u spreman s datumom/vremenom!');
     } else {
       throw new Error('Nema MP3-a');
     }
@@ -74,10 +74,10 @@ ${firstMp3}`;
   } catch (error) {
     console.error('❌', error.message);
     const fallbackContent = `#EXTM3U
-#EXTINF:-1,HRT Vijesti 07.03.2026 09:10
-https://api.hrt.hr/media/28/da/20260307-vijesti-37328738-20260307091001.mp3`;
+#EXTINF:-1,Dogodilo se 07.03.2026 09:15
+https://api.hrt.hr/media/28/da/20260307-dogodilo-se-37328738-20260307091501.mp3`;
     fs.writeFileSync('dogodilo_se.m3u', fallbackContent);
-    console.log('✅ Fallback M3U spreman');
+    console.log('✅ Fallback dogodilo_se.m3u spreman');
   } finally {
     if (browser) {
       await browser.close();
