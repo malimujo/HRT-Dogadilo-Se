@@ -42,10 +42,11 @@ async function updateM3U() {
         }
       }
       
-      // 🎵 FIXIRANI REGEX
+      // 🎵 FIXIRANI REGEX u scriptovima
       const scripts = Array.from(document.querySelectorAll('script'));
       for (const script of scripts) {
         const content = script.textContent || script.innerHTML;
+        // ✅ ISPRAVLJEN REGEX:
         const mp3Match1 = content.match(/"https?:\/\/api\.hrt\.hr\/media[^"]*\.mp3[^"]*"/);
         const mp3Match2 = content.match(/'https?:\/\/api\.hrt\.hr\/media[^']*\.mp3[^']*'/);
         if (mp3Match1) return { mp3: mp3Match1[0].slice(1, -1), image: imageUrl };
@@ -76,11 +77,11 @@ async function updateM3U() {
       
       const imageUrl = result.image || 'https://radio.hrt.hr/favicon.ico';
       const m3uContent = `#EXTM3U
-#EXTINF:-1 tvg-logo="${imageUrl}" group-title="Povijest",Dogodilo se ${emisijaInfo}
+#EXTINF:-1 tvg-logo="${imageUrl}" group-title="Dogodilo se na danasnji dan",HRT Dogodilo se na danasnji dan ${emisijaInfo}
 ${result.mp3}`;
 
       fs.writeFileSync('dogodilo_se.m3u', m3uContent);
-      console.log('✅ dogodilo_se.m3u spreman s ikonom!');
+      console.log('✅ M3U spreman s ikonom!');
     } else {
       throw new Error('Nema MP3-a');
     }
@@ -88,10 +89,10 @@ ${result.mp3}`;
   } catch (error) {
     console.error('❌', error.message);
     const fallbackContent = `#EXTM3U
-#EXTINF:-1 tvg-logo="https://radio.hrt.hr/favicon.ico",Dogodilo se 08.03.2026 20:00
-https://api.hrt.hr/media/28/da/20260308-dogodilo-se-37328738-20260308200000.mp3`;
+#EXTINF:-1 tvg-logo="https://radio.hrt.hr/favicon.ico",HRT Dogodilo se na danasnji dan 08.03.2026 19:00
+https://api.hrt.hr/media/28/da/20260308-vijesti-37328738-20260308190000.mp3`;
     fs.writeFileSync('dogodilo_se.m3u', fallbackContent);
-    console.log('✅ Fallback dogodilo_se.m3u spreman');
+    console.log('✅ Fallback M3U spreman');
   } finally {
     if (browser) {
       await browser.close();
