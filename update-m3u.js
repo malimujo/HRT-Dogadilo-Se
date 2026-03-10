@@ -110,7 +110,7 @@ ${result.mp3}`;
   } catch (error) {
     console.error('❌', error.message);
     const fallbackContent = `#EXTM3U
-#EXTINF:-1 tvg-logo="https://radio.hrt.hr/favicon.ico",HRT Dogodilo se na danasnji dan 10.03.2026 06:15
+#EXTINF:-1 tvg-logo="https://radio.hrt.hr/favicon.ico",HRT Dogodilo 10.03.2026 06:15
 https://api.hrt.hr/media/28/da/20260310-vijesti-37328738-20260310061500.mp3`;
     fs.writeFileSync('dogodilo_se.m3u', fallbackContent);
     console.log('✅ Fallback M3U spreman');
