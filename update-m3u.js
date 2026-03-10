@@ -42,13 +42,15 @@ async function updateM3U() {
         }
       }
       
-      // 🎵 FIXIRANI REGEX u scriptovima
+      // 🎵 ISPOPRAVLJENI REGEX u scriptovima
       const scripts = Array.from(document.querySelectorAll('script'));
       for (const script of scripts) {
         const content = script.textContent || script.innerHTML;
-        // ✅ ISPRAVLJEN REGEX:
-        const mp3Match1 = content.match(/"https?:\\/\\/api\\.hrt\\.hr\\/media[^"]*\\.mp3[^"]*"/);
-        const mp3Match2 = content.match(/'https?:\\/\\/api\\.hrt\\.hr\\/media[^']*\\.mp3[^']*'/);
+        // ✅ ISPRAVLJENO: Koristimo new RegExp za bolji escaping
+        const mp3Regex1 = new RegExp('"https?:\\\\\\/\\\\\\/api\\\\.hrt\\\\.hr\\\\\\/media[^"]*\\\\.mp3[^"]*"');
+        const mp3Regex2 = new RegExp("'https?:\\\\\\/\\\\\\/api\\\\.hrt\\\\.hr\\\\\\/media[^']*\\\\.mp3[^']*'");
+        const mp3Match1 = content.match(mp3Regex1);
+        const mp3Match2 = content.match(mp3Regex2);
         if (mp3Match1) return { mp3: mp3Match1[0].slice(1, -1), image: imageUrl };
         if (mp3Match2) return { mp3: mp3Match2[0].slice(1, -1), image: imageUrl };
       }
@@ -60,10 +62,10 @@ async function updateM3U() {
     console.log('🖼️ Slika:', result.image);
     
     if (result.mp3) {
-      // 🆕 NOVO: Povlačenje vremena sa web stranice
+      // 🆕 Povlačenje vremena sa web stranice
       const webTime = await page.evaluate(() => {
         const bodyText = document.body.innerText || document.body.textContent || '';
-        // Regex za format: "Uto, 10.03. u 06:15" ili varijacije (Pon/Pet, dd.mm. u HH:MM)
+        // Regex za format: "Uto, 10.03. u 06:15"
         const timeMatch = bodyText.match(/(?:Pon|Uto|Sri|Čet|Pet|Sub|Ned)(?:to|ak)?[,\\.\\s]+(\\d{1,2})[\\.\\s]+(\\d{1,2})[\\.\\s]*u[\\s]*(\\d{1,2}):(\\d{2})/i);
         if (timeMatch) {
           const dan = timeMatch[1].padStart(2, '0');
@@ -79,7 +81,7 @@ async function updateM3U() {
       let emisijaInfo = 'Najnovija';
       
       if (webTime) {
-        emisijaInfo = webTime;  // Prioritet web vremenu
+        emisijaInfo = webTime;
         console.log('🕐 Web vrijeme:', webTime);
       } else if (timeMatch) {
         const godina = timeMatch[1];
