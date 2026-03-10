@@ -98,7 +98,7 @@ async function updateM3U() {
       
       const imageUrl = result.image || 'https://radio.hrt.hr/favicon.ico';
       const m3uContent = `#EXTM3U
-#EXTINF:-1 tvg-logo="${imageUrl}" group-title="Dogodilo se na danasnji dan",HRT Dogodilo se na danasnji dan ${emisijaInfo}
+#EXTINF:-1 tvg-logo="${imageUrl}" group-title="Dogodilo se na danasnji dan",Dogodilo se ${emisijaInfo}
 ${result.mp3}`;
 
       fs.writeFileSync('dogodilo_se.m3u', m3uContent);
