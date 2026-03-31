@@ -83,7 +83,7 @@ async function updateM3U() {
       
       const imageUrl = result.image || 'https://radio.hrt.hr/favicon.ico';
       const m3uContent = `#EXTM3U
-#EXTINF:-1 tvg-logo="${imageUrl}" group-title="Povijest",${finalTitle}
+#EXTINF:-1 tvg-logo="${imageUrl}" group-title="Slušaonica",${finalTitle}
 ${result.mp3}`;
 
       fs.writeFileSync('dogodilo_se.m3u', m3uContent);
