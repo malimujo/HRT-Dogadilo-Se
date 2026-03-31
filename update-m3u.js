@@ -39,7 +39,7 @@ async function updateM3U() {
         }
       }
             
-      // 4. ✅ ISPRAVLJEN REGEX
+      // 3. ✅ ISPRAVLJEN REGEX
       const scripts = Array.from(document.querySelectorAll('script'));
       for (const script of scripts) {
         const content = script.textContent || script.innerHTML;
